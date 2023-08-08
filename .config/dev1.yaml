@@ -1,0 +1,15 @@
+# kook机器人服务启动端口
+port: 6001
+
+# kook机器人 token
+kook_bot_token: ''
+
+# kook机器人 验证 token
+kook_bot_verify_token: ''
+
+# kook机器人 加密 key
+kook_bot_encrypt_key: ''
+
+# 机器人版本号
+version: '0.0.1'
+
