@@ -59,11 +59,6 @@ https://www.npmjs.com/package/await-to-js
 因为 该 npm 包源码过于简单（就一个函数）
 所以直接将源码复制到了 src/utils/to.ts 内
 
-## 一个仅 200b 的 functional event emitter / pubsub.
-
-https://www.npmjs.com/package/mitt
-也已经复制到了 src/utils/mitt.ts 内
-
 ```js
 // 示例：请求错误处理
 
@@ -96,6 +91,11 @@ if (error || result.code !== 0) {
   // 处理错误
 }
 ```
+
+## 一个仅 200b 的 functional event emitter
+
+https://www.npmjs.com/package/mitt
+也已经复制到了 src/utils/mitt.ts 内
 
 ## 如何处理 kook api 请求频率限制
 
