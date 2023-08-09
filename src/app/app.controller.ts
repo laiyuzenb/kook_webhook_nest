@@ -69,38 +69,33 @@ export class AppController {
             channel_id: filter_message_data.channel_id,
             content: bot_current_status.feedback_text,
           });
-      return;
+      return {
+        challenge,
+      };
     }
 
-    // 只能这样判断后调用this服务 不能抽象成策略模式 否则会丢失this指向
-    switch (filter_message_data?.instruct_type) {
+    // 指令类型和对应的服务
+    const instruct_map = new Map([
       // 帮助
-      case KOOK_MSG_TYPE.help:
-        this.app.help(filter_message_data);
-        break;
-
+      [KOOK_MSG_TYPE.help, this.app.help],
       // 个人信息
-      case KOOK_MSG_TYPE.info:
-        this.app.info(filter_message_data);
-        break;
-
+      [KOOK_MSG_TYPE.info, this.app.info],
       // 设置
-      case KOOK_MSG_TYPE.set:
-        this.app.set(filter_message_data);
-        break;
-
+      [KOOK_MSG_TYPE.set, this.app.set],
       // 点击卡片按钮
-      case KOOK_MSG_TYPE.click_card_button:
-        this.app.button_click(filter_message_data);
-        break;
-
+      [KOOK_MSG_TYPE.click_card_button, this.app.button_click],
       // 文字私聊
-      case KOOK_MSG_TYPE.private_chat:
-        this.app.private_chat(filter_message_data);
+      [KOOK_MSG_TYPE.private_chat, this.app.private_chat],
+    ]);
 
-      default:
-        break;
+    // 没有指令类型 直接返回
+    if (instruct_map.has(filter_message_data?.instruct_type) === false) {
+      return {
+        challenge,
+      };
     }
+
+    instruct_map.get(filter_message_data.instruct_type)(filter_message_data);
 
     return {
       challenge,
